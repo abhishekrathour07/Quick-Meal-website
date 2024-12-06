@@ -11,9 +11,17 @@ import {
 } from "../../components/ui/form";
 import { SignUpSchema } from "./validation/Signup.validation";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
+
+type signupTypes = {
+    username: string;
+    email: string;
+    password: string;
+}
 const Signup: React.FC = () => {
-    const form = useForm({
+
+    const form = useForm<signupTypes>({
         defaultValues: {
             username: "",
             email: "",
@@ -22,9 +30,33 @@ const Signup: React.FC = () => {
         resolver: yupResolver(SignUpSchema),
     });
 
-    const onSubmit = (data: any) => {
-        console.log("Form submitted:", data);
-    };
+    const onSubmit = async (data: signupTypes) => {
+        try {
+            const url = "http://localhost:3005/auth/signup"
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            const result = await response.json();
+            const { success, message } = result
+
+            if (success) {
+                console.log(message);
+                toast.success(message);
+                navigate('/login')
+            }
+            else {
+                toast.error(message)
+                form.reset()
+            }
+        } catch (error: any) {
+            toast(error)
+            form.reset()
+        }
+    }
 
     const navigate = useNavigate();
 
@@ -115,7 +147,7 @@ const Signup: React.FC = () => {
                             {/* Signup Button */}
                             <button
                                 type="submit"
-                                 className="w-full bg-violet-600 text-white p-4 rounded-md hover:bg-violet-700 transition mt-4"
+                                className="w-full bg-violet-600 text-white p-4 rounded-md hover:bg-violet-700 transition mt-4"
                                 onClick={form.handleSubmit(onSubmit)}
                             >
                                 Sign Up
@@ -132,8 +164,8 @@ const Signup: React.FC = () => {
                                 </span>
                             </p>
                             <p className="text-sm text-slate-600">©2024 Quick Meal. All rights reserved <span className="text-sm font-medium text-slate-800">
-                            Terms & Conditions
-                            Privacy Policy</span></p>
+                                Terms & Conditions
+                                Privacy Policy</span></p>
                         </div>
                     </Form>
                 </div>

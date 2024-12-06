@@ -10,23 +10,44 @@ import {
     FormMessage,
 } from "../../components/ui/form";
 import { useNavigate } from "react-router-dom";
-import { LoginSchema } from "./validation/Login.validation";
+import { LoginSchema } from "./validation/login.validation";
+import { toast } from 'sonner'
 
 const Login: React.FC = () => {
     const form = useForm({
         defaultValues: {
-
             email: "",
             password: "",
         },
         resolver: yupResolver(LoginSchema),
     });
-
-    const onSubmit = (data: any) => {
-        console.log("Form submitted:", data);
-    };
-
     const navigate = useNavigate();
+
+    const onSubmit = async (data: any) => {
+        console.log(data);
+        try {
+            const url = "http://localhost:3005/auth/login"
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    "content-Type": 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            const result = await response.json();
+            const { success, message, name, jwtToken } = result;
+
+            if (success) {
+                toast.success(message)
+                localStorage.setItem("name", name);
+                localStorage.setItem("jwtToken", jwtToken);
+                navigate('/')
+            }
+        } catch (err: any) {
+            toast.error("Something went wrong", err)
+        }
+    }
+   
 
     return (
         <div className="min-h-[90vh] flex items-center justify-center  p-12 bg-slate-100">
@@ -94,7 +115,7 @@ const Login: React.FC = () => {
                             {/* Signup Button */}
                             <button
                                 type="submit"
-                                 className="w-full bg-violet-600 text-white p-4 rounded-md hover:bg-violet-700 transition mt-4"
+                                className="w-full bg-violet-600 text-white p-4 rounded-md hover:bg-violet-700 transition mt-4"
                                 onClick={form.handleSubmit(onSubmit)}
                             >
                                 Login

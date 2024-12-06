@@ -5,6 +5,7 @@ import App from './App'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import { CartProvider } from './context/Cartcontext'
+import { Toaster } from 'sonner'
 
 createRoot(document.getElementById('root')!).render(
   <Router>
@@ -12,6 +13,7 @@ createRoot(document.getElementById('root')!).render(
       <CartProvider>
         <Navbar />
         <App />
+        <Toaster/>
       </CartProvider>
     </StrictMode>
   </Router>
