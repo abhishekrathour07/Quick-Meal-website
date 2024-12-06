@@ -102,7 +102,7 @@ const Login: React.FC = () => {
                                         <FormControl>
                                             <input
                                                 type="password"
-                                                className="w-full p-3 border rounded-md outline-none focus:ring-2 focus:ring-purple-500"
+                                                className="w-full p-3 border rounded-md outline-none focus:ring-2 focus:ring-slate-500"
                                                 placeholder="Enter your password"
                                                 {...field}
                                             />
@@ -115,7 +115,7 @@ const Login: React.FC = () => {
                             {/* Signup Button */}
                             <button
                                 type="submit"
-                                className="w-full bg-violet-600 text-white p-4 rounded-md hover:bg-violet-700 transition mt-4"
+                                className="w-full bg-slate-900 text-white p-4 rounded-md hover:bg-slate-700 transition mt-4"
                                 onClick={form.handleSubmit(onSubmit)}
                             >
                                 Login
@@ -125,7 +125,7 @@ const Login: React.FC = () => {
                             <p className="text-center text-gray-600">
                                 Don't have an account?{" "}
                                 <span
-                                    className="text-purple-600 font-semibold cursor-pointer"
+                                    className="text-red-600 font-semibold cursor-pointer"
                                     onClick={() => navigate("/signup")}
                                 >
                                     Signup

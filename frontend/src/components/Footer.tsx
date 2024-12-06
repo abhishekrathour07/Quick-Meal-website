@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const Footer: React.FC = () => {
     const navigate = useNavigate();
     return (
-        <div className="h-auto p-6 md:p-12 bg-violet-600 text-white grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start">
+        <div className="h-auto p-6 md:p-12 bg-slate-900 text-white grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start">
             <div className="flex flex-col gap-4">
                 <img src="/images/logo.png" alt="Company-logo" className="h-16 w-16" />
                 <p>

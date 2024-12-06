@@ -7,7 +7,7 @@ import Footer from '../../components/Footer'
 
 const Home: React.FC = () => {
     return (
-        <div className="bg-[url('images/background.png')]">
+        <div className="bg-[url('images/background.png')] ">
             <CarouselMain />
             <Menu />
             <LoadApp />

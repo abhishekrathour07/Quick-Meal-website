@@ -26,12 +26,12 @@ const MenuItems: React.FC<FoodItem> = ({ name, image, price, description }) => {
             <div className="flex justify-center mb-4">
                 <img src={image} alt={name} className="rounded-full h-48 w-48" />
             </div>
-            <h3 className="text-lg text-center text-violet-600">{name}</h3>
+            <h3 className="text-lg text-center text-orange-700">{name}</h3>
             <p className="text-center">{description}</p>
             <div className="flex justify-between items-center mt-3 px-2">
-                <p className="text-lg text-violet-600 font-semibold">${price}</p>
+                <p className="text-lg text-green-600 font-semibold">${price}</p>
                 <button
-                    className="px-4 bg-violet-600 py-2 rounded-xl text-white flex items-center gap-2"
+                    className="px-4 bg-slate-900 py-2 rounded-xl text-white flex items-center gap-2"
                     onClick={cartValue === 0 ? increaseCartValue : undefined}
                 >
                     {cartValue === 0 ? (

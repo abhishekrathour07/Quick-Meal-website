@@ -37,14 +37,14 @@ const Cart: React.FC = () => {
                                         className="h-16 w-16 md:h-20 md:w-20 rounded"
                                     />
                                     <div>
-                                        <h3 className="text-lg text-orange-600">{item.name}</h3>
+                                        <h3 className="text-lg text-orange-600 font-semibold">{item.name}</h3>
                                         <p>${item.price}</p>
                                     </div>
                                 </div>
                                 {/* Quantity and Remove */}
                                 <div className="flex items-center gap-2">
                                     <button
-                                        className="px-2 py-1 bg-slate-200 text-violet-700 rounded"
+                                        className="px-2 py-1 bg-slate-200 text-red-600 rounded"
                                         onClick={() => {
                                             updateQuantity(item.name, item.quantity - 1);
                                             if (item.quantity === 1) removeFromCart(item.name);
@@ -52,11 +52,11 @@ const Cart: React.FC = () => {
                                     >
                                         <Minus size={16} />
                                     </button>
-                                    <p className="w-7 text-center text-orange-600">
+                                    <p className="w-7 text-center text-slate-900">
                                         {item.quantity}
                                     </p>
                                     <button
-                                        className="px-2 py-1 bg-slate-200 text-violet-700 rounded"
+                                        className="px-2 py-1 bg-slate-200 text-green-700 rounded"
                                         onClick={() =>
                                             updateQuantity(item.name, item.quantity + 1)
                                         }
@@ -64,7 +64,7 @@ const Cart: React.FC = () => {
                                         <Plus size={16} />
                                     </button>
                                     <button
-                                        className="ml-4 px-3 py-1 bg-violet-600 text-white rounded"
+                                        className="ml-4 px-3 py-1 bg-slate-900 text-white rounded"
                                         onClick={() => removeFromCart(item.name)}
                                     >
                                         Remove
@@ -72,7 +72,7 @@ const Cart: React.FC = () => {
                                 </div>
                             </div>
                         ))}
-                        <button className="w-full p-4 bg-violet-600 text-white text-lg"
+                        <button className="w-full p-4 bg-slate-900 text-white text-lg"
                             onClick={() => navigate("/cart/address")}>
                             Place Order
                         </button>

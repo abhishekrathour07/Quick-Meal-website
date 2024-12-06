@@ -35,7 +35,7 @@ const MenuCards: React.FC = () => {
                         <img
                             src={item.menu_image}
                             alt={item.menu_name}
-                            className={`h-40 w-40 border-2 rounded-full transition-all duration-300 ${activeMenu === item.menu_name ? "border-4 border-violet-800" : "border-4 border-transparent"
+                            className={`h-40 w-40 border-2 rounded-full transition-all duration-300 ${activeMenu === item.menu_name ? "border-4 border-orange-600" : "border-4 border-transparent"
                                 }`}
                         />
                         <p className="text-lg mt-2">{item.menu_name}</p>

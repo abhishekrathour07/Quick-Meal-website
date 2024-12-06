@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <div className='text-xl bg-violet-700 text-white flex justify-between px-8 items-center h-16 shadow-lg'>
+    <div className='text-xl bg-slate-900 text-white flex justify-between px-8 items-center h-16 shadow-lg'>
       <a href="/">
         <img src="/images/logo.png" alt="Logo" className='h-12 cursor-pointer' />
       </a>
