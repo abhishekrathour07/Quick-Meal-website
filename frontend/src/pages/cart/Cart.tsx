@@ -8,7 +8,7 @@ const Cart: React.FC = () => {
 
     const totalCost = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const navigate = useNavigate();
-
+   
     return (
         <div className="p-4 flex flex-col lg:flex-row justify-center lg:gap-8 bg-slate-100 min-h-screen">
             {/* Cart Items Section */}

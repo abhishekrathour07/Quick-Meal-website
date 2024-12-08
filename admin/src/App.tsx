@@ -7,12 +7,13 @@ import Dashboard from './pages/Dashboard/Dashboard'
 
 
 const App = () => {
+  const url = "http://localhost:3005"
   return (
     <Routes>
       <Route path='/' element={<Dashboard />} />
-      <Route path='/auth/food/add' element={<AddItems />} />
+      <Route path='/auth/food/add' element={<AddItems url={url} />} />
       <Route path='/admin/orders' element={<Order />} />
-      <Route path='//auth/food/list' element={<FoodList />} />
+      <Route path='//auth/food/list' element={<FoodList url={url}/>} />
       <Route path='/auth/settings' element={< Setting />} />
 
     </Routes>

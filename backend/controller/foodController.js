@@ -1,43 +1,70 @@
 import foodModel from "../models/foodModels.js";
 
-// Add food item
-export const addFood = async (req, res) => {
+const addFood = async (req, res) => {
+    let image_filename = req.file ? req.file.filename : null;
+
+    const food = new foodModel({
+        name: req.body.name,
+        description: req.body.description,
+        price: req.body.price,
+        image: image_filename,
+        category: req.body.category,
+    });
+
     try {
-        console.log("Request body:", req.body);
-        console.log("Uploaded file:", req.file);
-
-        if (!req.body.name || !req.body.description || !req.body.price || !req.body.category) {
-            return res.status(400).json({
-                message: "All fields are required",
-                success: false,
-            });
-        }
-        if (!req.file) {
-            return res.status(400).json({
-                message: "Image file is required",
-                success: false,
-            });
-        }
-
-        const food = new foodModel({
-            name: req.body.name,
-            description: req.body.description,
-            price: req.body.price,
-            category: req.body.category,
-            image: `/uploads/${req.file.filename}`,
-        });
-
         await food.save();
-
-        res.status(201).json({
-            message: "Food added successfully",
+        res.json({
             success: true,
+            message: "Food added successfully",
         });
-    } catch (err) {
-        console.log("Error:", err);
-        res.status(500).json({
-            message: "Server Error or bad request",
+    } catch (error) {
+        console.error(error);
+        res.json({
+            error: error,
             success: false,
+            message: "Error while adding food",
         });
     }
 };
+
+
+const getAllFood = async (req, res) => {
+    try {
+        const foods = await foodModel.find({});
+        res.json({
+            success: true,
+            data: foods
+        })
+    } catch (error) {
+        console.log(Error);
+        res.json({
+            error: error,
+            success: false,
+            message: "some error occured"
+        })
+
+    }
+};
+
+const removeFood = async (req, res) => {
+    try {
+        const food = await foodModel.findById(req.body.id);
+        fs.unlink(`uploads/${food.image}`, () => { });
+
+        await foodModel.findByIdAndDelete(req.body.id);
+        res.json({
+            success: true,
+            message: "food removed successfully"
+        })
+    } catch (error) {
+        console.log(error);
+        res.json({
+            success: false,
+            message: "some error occured"
+        })
+    }
+};
+
+
+// Correct ESM export
+export { addFood, removeFood, getAllFood };

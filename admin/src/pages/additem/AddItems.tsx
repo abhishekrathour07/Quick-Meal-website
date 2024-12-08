@@ -7,11 +7,13 @@ import {
     FormField,
     FormItem,
     FormMessage,
-    FormLabel
+    FormLabel,
 } from '../../components/ui/form';
 import { addItemSchema } from './validation/addItems.validation';
+import { toast } from 'sonner';
+import axios from 'axios';
 
-type addItemType = {
+type AddItemType = {
     name: string;
     description: string;
     price: string;
@@ -19,7 +21,12 @@ type addItemType = {
     category: string;
 };
 
-const AddItems: React.FC = () => {
+type Props = {
+    url: string;
+};
+
+const AddItems: React.FC<Props> = ({ url }) => {
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
 
     const form = useForm<any>({
         defaultValues: {
@@ -32,8 +39,6 @@ const AddItems: React.FC = () => {
         resolver: yupResolver(addItemSchema),
     });
 
-    // Handle image change for preview
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -42,8 +47,36 @@ const AddItems: React.FC = () => {
         }
     };
 
-    const onSubmit = (data: addItemType) => {
-        console.log('Form Data:', data);
+    const submitForm = async (data: AddItemType) => {
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('description', data.description);
+        formData.append('price', data.price);
+        formData.append('category', data.category);
+        if (data.image) formData.append('image', data.image);
+
+        try {
+            const response = await axios.post(`${url}/api/food/add`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            if (response.data.success) {
+                toast.success(response.data.message);
+                form.reset();
+                setImagePreview(null);
+            } else {
+                toast.error(response.data.message || 'Failed to add item.');
+            }
+        } catch (error: any) {
+            console.error('Error:', error);
+            toast.error(error.response?.data?.message || 'An unexpected error occurred.');
+        }
+    };
+
+    const onSubmit = async (data: AddItemType) => {
+        await submitForm(data);
     };
 
     return (
@@ -70,7 +103,6 @@ const AddItems: React.FC = () => {
                         </FormItem>
                     )}
                 />
-
                 <FormField
                     name="description"
                     control={form.control}
@@ -91,7 +123,6 @@ const AddItems: React.FC = () => {
                         </FormItem>
                     )}
                 />
-
                 <FormField
                     control={form.control}
                     name="price"
@@ -112,7 +143,6 @@ const AddItems: React.FC = () => {
                         </FormItem>
                     )}
                 />
-
                 <FormField
                     control={form.control}
                     name="image"
@@ -174,7 +204,6 @@ const AddItems: React.FC = () => {
                         </FormItem>
                     )}
                 />
-
                 <FormField
                     control={form.control}
                     name="category"
@@ -195,8 +224,6 @@ const AddItems: React.FC = () => {
                         </FormItem>
                     )}
                 />
-
-                {/* Submit Button */}
                 <button
                     type="submit"
                     className="mt-6 w-full bg-white hover:bg-slate-200 text-black font-bold py-3 rounded-md transition duration-300"
