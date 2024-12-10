@@ -189,18 +189,18 @@ const Address: React.FC = () => {
                     </h2>
                     <div className="flex justify-between py-2">
                         <p>MRP</p>
-                        <p>${totalCost}</p>
+                        <p>{totalCost}</p>
                     </div>
                     <div className="flex justify-between py-2 border-b">
                         <p>Delivery Fee</p>
                         <p className="text-green-600">
-                            {totalCost > 100 ? "Free" : "$20"}
+                            {totalCost > 100 ? "Free" : "20"}
                         </p>
                     </div>
                     <div className="flex justify-between py-2">
                         <p className="text-lg font-bold">Total Amount</p>
                         <p className="font-semibold">
-                            ${totalCost > 100 ? totalCost : totalCost + 20}
+                            {totalCost > 100 ? totalCost : totalCost + 20}
                         </p>
                     </div>
 

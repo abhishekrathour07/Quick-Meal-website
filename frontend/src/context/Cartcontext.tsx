@@ -29,40 +29,40 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [cart, setCart] = useState<CartItem[]>([]);
   const [food_list, setFoodList] = useState<any[]>([]);
   const [token, setToken] = useState<string | null>(null);
-  const url = "http://localhost:4000";
+  const url = "http://localhost:3005";
   const discountPercentage = 10;
 
-  // Load cart from localStorage on initial render
-  useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
-    if (storedCart) {
-      setCart(JSON.parse(storedCart));
+  // Helper function to sync cart with localStorage for non-logged-in users
+  const syncCartToLocalStorage = (cartData: CartItem[]) => {
+    if (!token) {
+      localStorage.setItem("cart", JSON.stringify(cartData));
     }
-  }, []);
+  };
 
-  // Save cart to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+  // Load cart data from the backend
+  const loadCartData = async () => {
+    if (!token) return; // Only sync from backend if token is present
+    try {
+      const response = await axios.get(`${url}/api/cart/get`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCart(response.data.cartData);
+    } catch (error) {
+      console.error("Error fetching cart data from backend:", error);
+    }
+  };
 
   // Fetch food list from the server
-  useEffect(() => {
-    const fetchFoodList = async () => {
-      try {
-        const response = await axios.get(`${url}/api/food/allfood`);
-        setFoodList(response.data.data);
-      } catch (error) {
-        console.error("Error fetching food list:", error);
-      }
-    };
-
-    fetchFoodList();
-    const savedToken = localStorage.getItem("token");
-    if (savedToken) {
-      setToken(savedToken);
+  const fetchFoodList = async () => {
+    try {
+      const response = await axios.get(`${url}/api/food/list`);
+      setFoodList(response.data.data);
+    } catch (error) {
+      console.error("Error fetching food list:", error);
     }
-  }, []);
+  };
 
+  // Add an item to the cart
   const addToCart = async (item: CartItem | string) => {
     if (typeof item === "string") {
       const foodItem = food_list.find((food) => food._id === item);
@@ -75,14 +75,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     setCart((prev) => {
       const existingItem = prev.find((cartItem) => cartItem.name === item.name);
-      if (existingItem) {
-        return prev.map((cartItem) =>
+      const updatedCart = existingItem
+        ? prev.map((cartItem) =>
           cartItem.name === item.name
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
-        );
-      }
-      return [...prev, { ...item, quantity: 1 }];
+        )
+        : [...prev, { ...item, quantity: 1 }];
+      syncCartToLocalStorage(updatedCart);
+      return updatedCart;
     });
 
     if (token) {
@@ -98,8 +99,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Remove an item from the cart
   const removeFromCart = async (name: string) => {
-    setCart((prev) => prev.filter((item) => item.name !== name));
+    setCart((prev) => {
+      const updatedCart = prev.filter((item) => item.name !== name);
+      syncCartToLocalStorage(updatedCart);
+      return updatedCart;
+    });
 
     if (token) {
       try {
@@ -114,26 +120,50 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Update the quantity of a specific item
   const updateQuantity = (name: string, quantity: number) => {
-    setCart((prev) =>
-      prev.map((item) =>
+    setCart((prev) => {
+      const updatedCart = prev.map((item) =>
         item.name === name ? { ...item, quantity: Math.max(quantity, 0) } : item
-      )
-    );
+      );
+      syncCartToLocalStorage(updatedCart);
+      return updatedCart;
+    });
   };
 
+  // Calculate the subtotal of the cart
   const calculateSubtotal = () => {
     return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
   };
 
+  // Calculate the total amount (including delivery fee)
   const calculateTotal = () => {
     const deliveryFee = 2; // Flat delivery fee
     return calculateSubtotal() + deliveryFee;
   };
 
+  // Calculate the discount amount
   const calculateDiscount = () => {
     return (calculateSubtotal() * discountPercentage) / 100;
   };
+
+  // Load initial data
+  useEffect(() => {
+    const loadData = async () => {
+      await fetchFoodList();
+      const savedToken = localStorage.getItem("token");
+      if (savedToken) {
+        setToken(savedToken);
+        await loadCartData(); // Sync cart data from backend for logged-in users
+      } else {
+        const storedCart = localStorage.getItem("cart");
+        if (storedCart) {
+          setCart(JSON.parse(storedCart)); // Load cart from localStorage for non-logged-in users
+        }
+      }
+    };
+    loadData();
+  }, []);
 
   return (
     <CartContext.Provider

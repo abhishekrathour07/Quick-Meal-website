@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { menu_list, food_list } from "../assets/frontend_assets/assets";
+import { menu_list } from "../assets/frontend_assets/assets";
 import { MenuItem } from "../assets/frontend_assets/assets";
 import MenuItems from "./MenuItems";
+import { useCart } from "../context/Cartcontext";
 
 const MenuCards: React.FC = () => {
     const [filterFoodCategory, setFilterFoodCategory] = useState("All");
     const [activeMenu, setActiveMenu] = useState<string>('');
 
+    const { food_list } = useCart()
     const filterFoodData =
         filterFoodCategory === "All"
             ? food_list
@@ -21,8 +23,8 @@ const MenuCards: React.FC = () => {
             setActiveMenu(menuName);
         }
     };
-     console.log(filterFoodCategory);
-     
+    console.log(filterFoodCategory);
+
     return (
         <div>
             <div
@@ -50,10 +52,10 @@ const MenuCards: React.FC = () => {
 
                 {filterFoodData.map((food) => (
                     <MenuItems
-                        key={food._id} 
+                        key={food._id}
                         name={food.name}
                         description={food.description}
-                        image={food.image}
+                        image={`http://localhost:3005/uploads/${food.image}`}
                         price={food.price}
                     />
                 ))}

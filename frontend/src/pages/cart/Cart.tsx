@@ -38,7 +38,7 @@ const Cart: React.FC = () => {
                                     />
                                     <div>
                                         <h3 className="text-lg text-orange-600 font-semibold">{item.name}</h3>
-                                        <p>${item.price}</p>
+                                        <p>{item.price}</p>
                                     </div>
                                 </div>
                                 {/* Quantity and Remove */}
@@ -89,18 +89,18 @@ const Cart: React.FC = () => {
                         </h2>
                         <div className="flex justify-between py-2">
                             <p>MRP</p>
-                            <p>${totalCost}</p>
+                            <p>{totalCost}</p>
                         </div>
                         <div className="flex justify-between py-2 border-b">
                             <p>Delivery Fee</p>
                             <p className="text-green-600">
-                                {totalCost > 100 ? "Free" : "$20"}
+                                {totalCost > 100 ? "Free" : "20"}
                             </p>
                         </div>
                         <div className="flex justify-between py-2">
                             <p className="text-lg font-bold">Total Amount</p>
                             <p className="font-semibold">
-                                ${totalCost > 100 ? totalCost : totalCost + 20}
+                                {totalCost > 100 ? totalCost : totalCost + 20}
                             </p>
                         </div>
                         <p
@@ -109,7 +109,7 @@ const Cart: React.FC = () => {
                         >
                             {totalCost > 100
                                 ? "Wohoo!! You are eligible for free delivery."
-                                : `Add $${100 - totalCost} more for free delivery.`}
+                                : `Add ${100 - totalCost} more for free delivery.`}
                         </p>
                     </div>
                     <div className="bg-white rounded-lg shadow-md mt-6 p-4 text-center">

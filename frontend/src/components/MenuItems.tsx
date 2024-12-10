@@ -12,6 +12,8 @@ interface FoodItem {
 }
 
 const MenuItems: React.FC<FoodItem> = ({ name, image, price, description }) => {
+
+    
     const { addToCart } = useCart();
     const [cartValue, setCartValue] = useState<number>(0);
 
@@ -29,7 +31,7 @@ const MenuItems: React.FC<FoodItem> = ({ name, image, price, description }) => {
             <h3 className="text-lg text-center text-orange-700">{name}</h3>
             <p className="text-center">{description}</p>
             <div className="flex justify-between items-center mt-3 px-2">
-                <p className="text-lg text-green-600 font-semibold">${price}</p>
+                <p className="text-lg text-green-600 font-semibold">{price}</p>
                 <button
                     className="px-4 bg-slate-900 py-2 rounded-xl text-white flex items-center gap-2"
                     onClick={cartValue === 0 ? increaseCartValue : undefined}
