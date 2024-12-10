@@ -12,22 +12,22 @@ const Sidebar: React.FC = () => {
     },
     {
       name: "Orders",
-      path: "/admin/orders",
+      path: "/api/orders",
       icon: <ShoppingBag />
     },
     {
       name: "Add Item",
-      path: "/auth/food/add",
+      path: "/api/food/add",
       icon: <PlusCircle />
     },
     {
       name: "Food List",
-      path: "/auth/food/list",
+      path: "/api/food/list",
       icon: <List />
     },
     {
       name: "Settings",
-      path: "/auth/settings",
+      path: "/api/settings",
       icon: <Settings />
     },
   ];
