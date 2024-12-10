@@ -8,6 +8,7 @@ import Cart from './pages/cart/Cart'
 import Chinease from './pages/chinease/Chinease'
 import Signup from './pages/signup/SignUp'
 import Login from './pages/login/Login'
+import Payment from './pages/payment/Payment'
 
 const App: React.FC = () => {
 
@@ -16,6 +17,7 @@ const App: React.FC = () => {
             <Route path='/' element={<Home />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/cart/address' element={<Address />} />
+            <Route path='/cart/address/payment' element={<Payment />} />
             <Route path='/chinease' element={<Chinease />} />
             <Route path='/north-indian' element={<NorthIndian />} />
             <Route path='/south-indian' element={<SouthIndian />} />

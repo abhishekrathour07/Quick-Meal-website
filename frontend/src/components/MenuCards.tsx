@@ -23,8 +23,6 @@ const MenuCards: React.FC = () => {
             setActiveMenu(menuName);
         }
     };
-    console.log(filterFoodCategory);
-
     return (
         <div>
             <div

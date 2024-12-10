@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const Cart: React.FC = () => {
     const { cart, removeFromCart, updateQuantity } = useCart();
+    console.log(cart);
+    
 
     const totalCost = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const navigate = useNavigate();

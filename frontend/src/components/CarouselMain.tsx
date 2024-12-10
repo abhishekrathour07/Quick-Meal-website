@@ -45,7 +45,7 @@ export function CarouselMain() {
       setCurrentIndex((prevIndex) =>
         prevIndex === imgData.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(interval); // Cleanup the interval on component unmount
   }, [imgData.length]);

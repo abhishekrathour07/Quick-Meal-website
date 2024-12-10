@@ -14,7 +14,7 @@ import { MoveLeft, ShieldCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Address: React.FC = () => {
-    
+
     const form = useForm({
         defaultValues: {
             firstName: "",
@@ -23,7 +23,7 @@ const Address: React.FC = () => {
             addressLine: "",
             city: "",
             postalCode: "",
-            locality:"",
+            locality: "",
         },
         resolver: yupResolver(addressSchema),
     });
@@ -37,8 +37,8 @@ const Address: React.FC = () => {
     };
 
     return (
-        <div className="p-6 bg-gray-100  flex flex-col md:flex-row justify-around px-4 md:px-12 gap-6">
-            <div className="w-full lg:w-60% bg-white p-8 mt-4 shadow-lg rounded-lg">
+        <div className="p-6 bg-gray-100 h-screen  flex flex-col md:flex-row justify-around px-4 md:px-12 gap-6">
+            <div className="w-full lg:w-60% bg-white p-8 mt-4 shadow-lg rounded-lg h-fit">
                 <h2 className="text-2xl font-bold mb-4 text-gray-800">
                     Delivery Address
                 </h2>
@@ -147,7 +147,7 @@ const Address: React.FC = () => {
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
-                                
+
                             )}
                         />
                     </div>
@@ -175,7 +175,11 @@ const Address: React.FC = () => {
                     <button
                         type="submit"
                         className="w-full bg-slate-900 text-white p-4 rounded-md hover:bg-slate-950 transition mt-4"
-                        onClick={form.handleSubmit(onSubmit)}
+                        onClick={form.handleSubmit((data) => {
+                            onSubmit(data); // Perform the submission logic
+                            navigate("/cart/address/payment");
+                        })}
+                    
                     >
                         SAVE AND DELIVER HERE
                     </button>
@@ -183,7 +187,7 @@ const Address: React.FC = () => {
             </div>
             {/* Price Details Section */}
             <div className="w-full md:w-[35%] mt-6 lg:mt-0 flex-shrink-0">
-                <div className="bg-white rounded-lg shadow-md p-4">
+                <div className="bg-white rounded-lg shadow-md p-4 mt-4">
                     <h2 className="text-lg font-bold text-slate-500 border-b pb-2">
                         PRICE DETAILS
                     </h2>
@@ -207,7 +211,7 @@ const Address: React.FC = () => {
                 </div>
                 <div className="bg-white rounded-lg shadow-md mt-6 p-4 text-center">
                     <p className="text-lg text-slate-500 flex">
-                        <ShieldCheck size={44} />  Save and Secure Payment. Easy return. 100% Authentic pruducts
+                        <ShieldCheck size={44} />  Save and Secure Payment. Easy return. 100% Authentic products
                     </p>
                     <div
                         className="flex items-center justify-center gap-2 text-green-600 cursor-pointer mt-2"

@@ -1,5 +1,5 @@
 import { CircleMinus, CirclePlus } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCart } from '../context/Cartcontext';
 
 
@@ -13,15 +13,23 @@ interface FoodItem {
 
 const MenuItems: React.FC<FoodItem> = ({ name, image, price, description }) => {
 
-    
-    const { addToCart } = useCart();
+
+    const { cart, addToCart, removeFromCart } = useCart();
     const [cartValue, setCartValue] = useState<number>(0);
+    // console.log(cart);
+    useEffect(() => {
+        const item = cart.find((cartItem) => cartItem.name === name);
+        setCartValue(item ? item.quantity : 0);
+    }, [cart, name]);
 
     const increaseCartValue = () => {
         setCartValue(cartValue + 1);
         addToCart({ name, image, price, quantity: cartValue + 1 });
     }
-    const decreaseCartValue = () => setCartValue(Math.max(0, cartValue - 1));
+    const decreaseCartValue = () => {
+        setCartValue(cartValue - 1);
+        removeFromCart(name)
+    }
 
     return (
         <div className="flex flex-col justify-between p-4 m-2 bg-slate-100 rounded-lg py-6 drop-shadow-lg ">

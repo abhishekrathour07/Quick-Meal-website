@@ -1,10 +1,15 @@
 import { Search, ShoppingCart, User } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/Cartcontext';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
-  const [activeMenu, setActiveMenu] = useState<string>(''); // Track active menu
+  const [activeMenu, setActiveMenu] = useState<string>('');
+
+  const { cart } = useCart();
+  console.log(cart.length);
+
 
   const handleMenuClick = (menu: string, route: string) => {
     setActiveMenu(menu);
@@ -53,18 +58,22 @@ const Navbar: React.FC = () => {
           <Search className='hover:text-orange-500' />
         </li>
         <li
-          className={`cursor-pointer hover:text-orange-500 ${activeMenu === 'cart' ? 'text-orange-500' : ''
+          className={`cursor-pointer hover:text-orange-500 relative ${activeMenu === 'cart' ? 'text-orange-500' : ''
             }`}
           onClick={() => handleMenuClick('cart', '/cart')}
         >
-          <ShoppingCart/>
+          <ShoppingCart />
+          {cart.length === 0 ? "" :
+            <div className=' h-5 w-5 p-2 rounded-full bg-red-600 absolute bottom-3 left-3 text-white flex justify-center items-center text-sm font-semibold'>{cart.length}</div>
+          }
+
         </li>
         <li
           className={`cursor-pointer hover:text-orange-500 ${activeMenu === 'login' ? 'text-orange-500' : ''
             }`}
           onClick={() => handleMenuClick('login', '/login')}
         >
-          <User/>
+          <User />
         </li>
       </ul>
     </div>
