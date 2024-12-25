@@ -27,7 +27,6 @@ type Props = {
 
 const AddItems: React.FC<Props> = ({ url }) => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
-
     const form = useForm<any>({
         defaultValues: {
             name: '',
@@ -213,17 +212,22 @@ const AddItems: React.FC<Props> = ({ url }) => {
                                 Category <span className="text-red-500">*</span>
                             </FormLabel>
                             <FormControl>
-                                <input
-                                    type="text"
-                                    placeholder="Enter food category (e.g., Snacks, Veg, Non-veg)"
-                                    className="w-full p-3 border rounded-md outline-none bg-slate-700 text-slate-100 border-slate-600 focus:ring-2 focus:ring-slate-400"
-                                    {...field}
-                                />
+                                <select
+                                    className="border rounded-lg py-1 px-2 outline-none font-semibold border-slate-500 w-full bg-slate-700 h-12 text-center text-white"
+                                    {...field} 
+                                >
+                                    <option value="Veg">Veg</option>
+                                    <option value="Non-Veg">Non-Veg</option>
+                                    <option value="North-Indian">North-Indian</option>
+                                    <option value="South-Indian">South-Indian</option>
+                                    <option value="Chinease">Chinease</option>
+                                </select>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
+
                 <button
                     type="submit"
                     className="mt-6 w-full bg-white hover:bg-slate-200 text-black font-bold py-3 rounded-md transition duration-300"
