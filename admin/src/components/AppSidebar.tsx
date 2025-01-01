@@ -39,7 +39,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <div
-      className={`flex flex-col h-[92vh]   text-white bg-slate-900 transition-all duration-300 z-50 ${isMinimized ? "w-20" : "w-20  lg:w-80 xl:w-96"}`}>
+      className={`flex flex-col h-[92vh]   text-white bg-[#A294F9] transition-all duration-300 z-50 ${isMinimized ? "w-15" : "w-20  lg:w-80 xl:w-96"}`}>
 
       <div className="flex items-center justify-between p-4 border-b border-gray-700">
         <div className={`text-xl md:text-2xl font-bold ${isMinimized ? "hidden" : "lg:block hidden"}`}>
@@ -47,7 +47,7 @@ const Sidebar: React.FC = () => {
         </div>
         <button
           onClick={toggleSidebar}
-          className="text-xl p-2 hover:bg-slate-800 rounded-xl" >
+          className="text-xl p-2 hover:bg-[#8903a3] rounded-xl" >
           {isMinimized ? <PanelLeftOpen /> : <PanelLeftClose />}
         </button>
       </div>
@@ -59,7 +59,7 @@ const Sidebar: React.FC = () => {
             key={index}
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center p-3 mt-2 rounded-lg hover:bg-slate-800 ${isActive ? "bg-slate-800 text-green-400" : ""
+              `flex items-center p-3 mt-2 rounded-lg bg-[#A294F9] ${isActive ? "bg-[#a530bc] text-red-500" : ""
               }`
             }
           >

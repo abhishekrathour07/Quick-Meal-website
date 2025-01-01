@@ -79,7 +79,7 @@ const AddItems: React.FC<Props> = ({ url }) => {
     };
 
     return (
-        <div className="bg-slate-800 shadow-md rounded-xl p-8 m-4 w-full max-w-5xl h-[85vh] mx-auto overflow-y-scroll scrollbar-hide">
+        <div className="bg-[#1A1A1D] shadow-md rounded-xl p-8 m-4 w-full max-w-5xl h-[85vh] mx-auto overflow-y-scroll scrollbar-hide">
             <h2 className="text-2xl font-bold mb-6 text-slate-100">Add Food Item</h2>
             <Form {...form}>
                 <FormField
