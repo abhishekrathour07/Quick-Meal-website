@@ -41,7 +41,7 @@ const Reports: React.FC = () => {
 
     return (
         <div className="bg-white bg-[url('/background.png')] shadow-md rounded-xl flex flex-col gap-6 p-6 m-4 w-full lg:max-w-6xl mx-auto h-[87vh] overflow-hidden overflow-y-scroll scrollbar-hide">
-            <h2 className="text-4xl font-semibold text-black text-center mb-6">Reports & Insights</h2>
+            <h2 className="text-4xl font-semibold text-black text-center mb-6">Profit & Insights</h2>
                 <ReportsChart />
            
             {/* Key Statistics */}
