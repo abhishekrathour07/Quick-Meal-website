@@ -53,9 +53,9 @@ const FoodList: React.FC<props> = ({ url }) => {
     };
 
     return (
-        <div className="bg-slate-800 shadow-md rounded-xl p-8 m-4 w-full max-w-5xl h-[85vh] mx-auto overflow-y-scroll scrollbar-hide">
-            <div className="my-6 px-3 md:px-10">
-                <h2 className="text-xl md:text-3xl font-semibold text-white">Food List</h2>
+        <div className="bg-white bg-[url('/background.png')] shadow-md rounded-xl p-6 m-4 w-full max-w-6xl h-[85vh] mx-auto overflow-y-scroll scrollbar-hide">
+            <div className=" px-3 md:px-10">
+                <h2 className="text-xl md:text-3xl font-semibold text-black">Food List</h2>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                     {list.map((food) => (

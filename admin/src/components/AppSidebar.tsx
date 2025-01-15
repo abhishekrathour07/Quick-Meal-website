@@ -1,18 +1,23 @@
 import { LayoutDashboard, List, LogOut, PanelLeftClose, PanelLeftOpen, PlusCircle, Settings, ShoppingBag } from "lucide-react";
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
-const Sidebar: React.FC = () => {
+
+type props = {
+  isMinimized: boolean,
+  toggleSidebar: () => void
+}
+const Sidebar: React.FC<props> = ({isMinimized,toggleSidebar}) => {
 
   const menuItems = [
     {
       name: "Dashboard",
-      path: "/",
+      path: "/dashboard",
       icon: <LayoutDashboard />
     },
     {
       name: "Orders",
-      path: "/api/orders",
+      path: "/api/order-summary",
       icon: <ShoppingBag />
     },
     {
@@ -32,34 +37,34 @@ const Sidebar: React.FC = () => {
     },
   ];
 
-  const [isMinimized, setIsMinimized] = useState(false);
-  const toggleSidebar = () => {
-    setIsMinimized((prev) => !prev);
-  };
+  // const [isMinimized, setIsMinimized] = useState(false);
+  // const toggleSidebar = () => {
+  //   setIsMinimized((prev) => !prev);
+  // };
 
   return (
     <div
-      className={`flex flex-col h-[92vh]   text-white bg-[#A294F9] transition-all duration-300 z-50 ${isMinimized ? "w-15" : "w-20  lg:w-80 xl:w-96"}`}>
+      className={`flex flex-col h-[91vh] justify-center p-2 text-white bg-slate-950 transition-all duration-300 z-50 ${isMinimized ? "w-16" : "w-16  lg:w-72"}`}>
 
-      <div className="flex items-center justify-between p-4 border-b border-gray-700">
+      <div className="flex items-center gap-4 px-2 mt-9 border-b border-gray-700 ">
         <div className={`text-xl md:text-2xl font-bold ${isMinimized ? "hidden" : "lg:block hidden"}`}>
           Quick Meal Admin
         </div>
         <button
           onClick={toggleSidebar}
-          className="text-xl p-2 hover:bg-[#8903a3] rounded-xl" >
+          className="text-xl flex justify-center items-center  py-4" >
           {isMinimized ? <PanelLeftOpen /> : <PanelLeftClose />}
         </button>
       </div>
 
       {/* Menu */}
-      <nav className="flex-1 p-4 ">
+      <nav className="flex-1 w-full">
         {menuItems.map((item, index) => (
           <NavLink
             key={index}
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center p-3 mt-2 rounded-lg bg-[#A294F9] ${isActive ? "bg-[#a530bc] text-red-500" : ""
+              `flex items-center gap-3 px-3 py-3 mt-2 rounded-lg bg-slate-950 ${isActive ? " text-orange-600" : ""
               }`
             }
           >
@@ -70,7 +75,7 @@ const Sidebar: React.FC = () => {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-gray-700">
+      <div className="border-t border-gray-700">
         <button
           className="w-full p-4 text-left text-sm font-medium"
           onClick={() => alert("Logging out...")}

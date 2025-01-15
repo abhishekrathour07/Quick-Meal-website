@@ -79,21 +79,21 @@ const AddItems: React.FC<Props> = ({ url }) => {
     };
 
     return (
-        <div className="bg-[#1A1A1D] shadow-md rounded-xl p-8 m-4 w-full max-w-5xl h-[85vh] mx-auto overflow-y-scroll scrollbar-hide">
-            <h2 className="text-2xl font-bold mb-6 text-slate-100">Add Food Item</h2>
+        <div className="bg-white bg-[url(/background.png)] shadow-md rounded-xl p-8 m-4 w-full max-w-5xl h-[85vh] mx-auto overflow-y-scroll scrollbar-hide">
+            <h2 className="text-2xl font-bold mb-6 ">Add Food Item</h2>
             <Form {...form}>
                 <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-medium text-white">
+                            <FormLabel className="font-medium">
                                 Food Item Name <span className="text-red-500">*</span>
                             </FormLabel>
                             <FormControl>
                                 <input
                                     type="text"
-                                    className="w-full p-3 border rounded-md outline-none bg-slate-700 text-slate-200 border-slate-600 focus:ring-2 focus:ring-slate-400"
+                                    className="w-full p-3 border rounded-md outline-none   border-slate-500 focus:ring-2 focus:ring-slate-400"
                                     placeholder="Enter food item name"
                                     {...field}
                                 />
@@ -107,13 +107,13 @@ const AddItems: React.FC<Props> = ({ url }) => {
                     control={form.control}
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-medium text-white">
+                            <FormLabel className="font-medium text-black">
                                 Description <span className="text-red-500">*</span>
                             </FormLabel>
                             <FormControl>
                                 <textarea
                                     rows={3}
-                                    className="w-full p-3 border rounded-md outline-none bg-slate-700 text-white border-slate-600 focus:ring-2 focus:ring-slate-400"
+                                    className="w-full p-3 border rounded-md outline-none border-slate-500 focus:ring-2 focus:ring-slate-400"
                                     placeholder="Enter a description of the food item"
                                     {...field}
                                 />
@@ -127,14 +127,14 @@ const AddItems: React.FC<Props> = ({ url }) => {
                     name="price"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-medium text-white">
+                            <FormLabel className="font-medium black">
                                 Price <span className="text-red-500">*</span>
                             </FormLabel>
                             <FormControl>
                                 <input
                                     type="text"
                                     placeholder="Enter the price of food"
-                                    className="w-full p-3 border rounded-md outline-none bg-slate-700 text-white border-slate-600 focus:ring-2 focus:ring-slate-400"
+                                    className="w-full p-3 border rounded-md outline-none  border-slate-500 focus:ring-2 focus:ring-slate-400"
                                     {...field}
                                 />
                             </FormControl>
@@ -147,11 +147,11 @@ const AddItems: React.FC<Props> = ({ url }) => {
                     name="image"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="mt-8 font-medium text-white">
+                            <FormLabel className="mt-8 font-medium text-black">
                                 Upload Image <span className="text-red-500">*</span>
                             </FormLabel>
                             <FormControl>
-                                <div className="border-2 border-dashed border-slate-500 p-4 rounded-lg flex items-center justify-center bg-slate-700 hover:border-slate-400 transition duration-300">
+                                <div className="border-2 border-dashed border-slate-500 p-4 rounded-lg flex items-center justify-center hover:border-slate-400 transition duration-300">
                                     <input
                                         type="file"
                                         accept="image/*"
@@ -176,7 +176,7 @@ const AddItems: React.FC<Props> = ({ url }) => {
                                             <>
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
-                                                    className="h-10 w-10 text-green-400 mb-2"
+                                                    className="h-10 w-10 text-orange-600 mb-2"
                                                     fill="none"
                                                     viewBox="0 0 24 24"
                                                     stroke="currentColor"
@@ -208,12 +208,12 @@ const AddItems: React.FC<Props> = ({ url }) => {
                     name="category"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="font-medium text-white">
+                            <FormLabel className="font-medium text-black">
                                 Category <span className="text-red-500">*</span>
                             </FormLabel>
                             <FormControl>
                                 <select
-                                    className="border rounded-lg py-1 px-2 outline-none font-semibold border-slate-500 w-full bg-slate-700 h-12 text-center text-white"
+                                    className="border rounded-lg py-1 px-4 w outline-none font-semibold border-slate-500 w-full h-12 text-center "
                                     {...field} 
                                 >
                                     <option value="Veg">Veg</option>
@@ -230,7 +230,7 @@ const AddItems: React.FC<Props> = ({ url }) => {
 
                 <button
                     type="submit"
-                    className="mt-6 w-full bg-white hover:bg-slate-200 text-black font-bold py-3 rounded-md transition duration-300"
+                    className="mt-6 w-full bg-black hover:bg-slate-800 text-white font-bold py-3 rounded-md transition duration-300"
                     onClick={form.handleSubmit(onSubmit)}
                 >
                     Add Item
