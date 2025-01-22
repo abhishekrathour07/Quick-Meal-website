@@ -36,8 +36,9 @@ export const signup = async (req, res) => {
     }
 };
 export const login = async (req, res) => {
+
     try {
-        const {email, password } = req.body;
+        const { email, password } = req.body;
         const errorMsg = "Authentication Failed ,email or password is wrong "
         const existingUser = await user.findOne({ email });
         if (!existingUser) {
@@ -67,7 +68,8 @@ export const login = async (req, res) => {
             success: true,
             jwtToken,
             email,
-            name:existingUser.name
+            name: existingUser.username,
+            userId: existingUser._id,
         });
     } catch (err) {
         // Handle server errors

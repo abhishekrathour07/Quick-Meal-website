@@ -37,7 +37,38 @@ const placeOrder = async (req, res) => {
 };
 
 // Get all orders
-const getOrders = async (req, res) => {
+const getUserOrders = async (req, res) => {
+    try {
+      const userId = req.userId; 
+      
+      if (!userId) {
+        return res.status(400).json({ success: false, message: "User ID is required" });
+      }
+  
+      // Fetch orders filtered by userId
+      const orders = await orderModel.find({ userId });
+  
+      if (orders.length === 0) {
+        return res.json({
+          success: false,
+          message: 'No orders found for this user.',
+        });
+      }
+  
+      res.json({
+        success: true,
+        data: orders,
+      });
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      res.json({
+        success: false,
+        message: `Error fetching orders: ${error}`,
+      });
+    }
+  };
+
+  const getAllOrders = async (req, res) => {
     try {
         const orders = await orderModel.find({});
         res.json({
@@ -53,4 +84,19 @@ const getOrders = async (req, res) => {
     }
 };
 
-export { placeOrder, getOrders };
+const getOrderById = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const order = await orderModel.findById(id);
+  
+      if (!order) {
+        return res.status(404).json({ success: false, message: 'Order not found' });
+      }
+  
+      res.status(200).json({ success: true, data: order });
+    } catch (error) {
+      res.status(500).json({ success: false, message: 'Failed to fetch order', error: error.message });
+    }
+  };
+
+export { placeOrder, getUserOrders ,getAllOrders,getOrderById };

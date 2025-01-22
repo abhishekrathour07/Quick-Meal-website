@@ -30,7 +30,7 @@ app.use("/api/food", foodRouter);
 app.use("/api/cart", cartRouter);
 
 // Order Routes
-app.use("/api/order", orderRouter);
+app.use("/api", orderRouter);
 
 app.listen(PORT, () => {
     console.log("Server is started at port " + PORT);
