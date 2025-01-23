@@ -5,8 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 const Cart: React.FC = () => {
     const { cart, removeFromCart, updateQuantity } = useCart();
-    console.log(cart);
+    const placeOrderValidation = ()=>{
+        const token = localStorage.getItem('jwtToken')
+        token?navigate("/cart/address"):navigate("/login")
+    }
     
+   
 
     const totalCost = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const navigate = useNavigate();
@@ -75,7 +79,7 @@ const Cart: React.FC = () => {
                             </div>
                         ))}
                         <button className="w-full p-4 bg-slate-900 text-white text-lg"
-                            onClick={() => navigate("/cart/address")}>
+                            onClick={placeOrderValidation} >
                             Place Order
                         </button>
                     </div>

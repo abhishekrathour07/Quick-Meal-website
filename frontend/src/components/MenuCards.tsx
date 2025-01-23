@@ -29,7 +29,7 @@ const MenuCards: React.FC = () => {
                 className="flex gap-4 items-center overflow-x-auto scrollbar-hide scroll-smooth" >
                 {menu_list.map((item: MenuItem) => (
                     <div
-                        key={item.menu_name} // Using menu_name as a unique key
+                        key={item.menu_name} 
                         className="flex flex-col items-center justify-center cursor-pointer h-64 min-w-36 transition-transform duration-300 ease-in-out hover:scale-105"
                         onClick={() => handleMenuClick(item.menu_name)} // Handle category change and active state
                     >

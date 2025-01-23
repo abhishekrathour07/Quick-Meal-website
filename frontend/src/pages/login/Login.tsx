@@ -24,30 +24,32 @@ const Login: React.FC = () => {
     const navigate = useNavigate();
 
     const onSubmit = async (data: any) => {
-        console.log(data);
+        console.log("Form data:", data);
         try {
-            const url = "http://localhost:3005/auth/login"
+            const url = "http://localhost:3005/auth/login";
             const response = await fetch(url, {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                    "content-Type": 'application/json',
+                    "content-Type": "application/json",
                 },
-                body: JSON.stringify(data)
-            })
+                body: JSON.stringify(data),
+            });
             const result = await response.json();
-            const { success, message, name, jwtToken } = result;
+            const { success, message, name, jwtToken ,userId } = result;
 
             if (success) {
-                toast.success(message)
+                toast.success(message);
                 localStorage.setItem("name", name);
                 localStorage.setItem("jwtToken", jwtToken);
-                navigate('/')
+                localStorage.setItem("userId", userId);
+                navigate("/");
             }
         } catch (err: any) {
-            toast.error("Something went wrong", err)
+            toast.error("Something went wrong", err);
         }
-    }
-   
+    };
+
+
 
     return (
         <div className="min-h-[90vh] flex items-center justify-center  p-12 bg-slate-100">

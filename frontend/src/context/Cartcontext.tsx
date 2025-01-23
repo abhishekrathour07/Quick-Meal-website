@@ -20,7 +20,6 @@ interface CartContextProps {
   discountPercentage: number;
   url: string;
   token: string | null;
-  setToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -28,7 +27,7 @@ const CartContext = createContext<CartContextProps | undefined>(undefined);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [food_list, setFoodList] = useState<any[]>([]);
-  const [token, setToken] = useState<string | null>(null);
+  const token = localStorage.getItem("jwtToken")
   const url = "http://localhost:3005";
   const discountPercentage = 10;
 
@@ -72,7 +71,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return;
       }
     }
-
+    if (token) {
+      try {
+        await axios.post(
+          `${url}/api/cart/add`,
+          { itemId: item.name },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      } catch (error) {
+        console.error("Error adding item to cart:", error);
+      }
+    }
     setCart((prev) => {
       const existingItem = prev.find((cartItem) => cartItem.name === item.name);
       const updatedCart = existingItem
@@ -86,17 +95,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return updatedCart;
     });
 
-    if (token) {
-      try {
-        await axios.post(
-          `${url}/api/cart/add`,
-          { itemId: item.name },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-      } catch (error) {
-        console.error("Error adding item to cart:", error);
-      }
-    }
+ 
   };
 
   // Remove an item from the cart
@@ -106,7 +105,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       syncCartToLocalStorage(updatedCart);
       return updatedCart;
     });
-
+    console.log(token);
+    
     if (token) {
       try {
         await axios.post(
@@ -151,9 +151,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const loadData = async () => {
       await fetchFoodList();
-      const savedToken = localStorage.getItem("token");
+      const savedToken = localStorage.getItem("jwToken");
       if (savedToken) {
-        setToken(savedToken);
+
         await loadCartData(); // Sync cart data from backend for logged-in users
       } else {
         const storedCart = localStorage.getItem("cart");
@@ -179,7 +179,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         discountPercentage,
         url,
         token,
-        setToken,
       }}
     >
       {children}

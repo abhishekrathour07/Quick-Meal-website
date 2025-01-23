@@ -20,7 +20,7 @@ const LogOutdropdown: React.FC = () => {
                 <Avatar className="cursor-pointer">
                     <AvatarImage
                         src={`https://ui-avatars.com/api/?name=${name}`
-                        }
+                        }  
                         alt="@shadcn"
                     />
                     <AvatarFallback>USER</AvatarFallback>

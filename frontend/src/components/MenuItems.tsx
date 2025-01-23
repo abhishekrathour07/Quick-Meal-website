@@ -16,7 +16,6 @@ const MenuItems: React.FC<FoodItem> = ({ name, image, price, description }) => {
 
     const { cart, addToCart, removeFromCart } = useCart();
     const [cartValue, setCartValue] = useState<number>(0);
-    // console.log(cart);
     useEffect(() => {
         const item = cart.find((cartItem) => cartItem.name === name);
         setCartValue(item ? item.quantity : 0);

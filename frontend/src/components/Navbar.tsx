@@ -2,19 +2,21 @@ import { Search, ShoppingCart, User } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/Cartcontext';
+import LogOutdropdown from './logOutdropdown';
+
+
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState<string>('');
 
   const { cart } = useCart();
-  console.log(cart.length);
-
 
   const handleMenuClick = (menu: string, route: string) => {
     setActiveMenu(menu);
     navigate(route);
   };
+  const jwtToken = localStorage.getItem("jwtToken");
 
   return (
     <div className='text-xl bg-slate-900 text-white flex justify-between px-8 items-center h-16 shadow-lg'>
@@ -53,12 +55,12 @@ const Navbar: React.FC = () => {
         </li>
       </ul>
 
-      <ul className='flex gap-6 cursor-pointer'>
+      <ul className='flex gap-6 cursor-pointer items-center'>
         <li>
           <Search className='hover:text-orange-500' />
         </li>
         <li
-          className={`cursor-pointer hover:text-orange-500 relative ${activeMenu === 'cart' ? 'text-orange-500' : ''
+          className={`cursor-pointer hover:text-orange-500 relative  ${activeMenu === 'cart' ? 'text-orange-500' : ''
             }`}
           onClick={() => handleMenuClick('cart', '/cart')}
         >
@@ -71,9 +73,14 @@ const Navbar: React.FC = () => {
         <li
           className={`cursor-pointer hover:text-orange-500 ${activeMenu === 'login' ? 'text-orange-500' : ''
             }`}
-          onClick={() => handleMenuClick('login', '/login')}
-        >
-          <User />
+
+        >{
+            jwtToken ?
+              <LogOutdropdown />
+              :
+              <User onClick={() => handleMenuClick('login', '/login')} />
+          }
+
         </li>
       </ul>
     </div>
