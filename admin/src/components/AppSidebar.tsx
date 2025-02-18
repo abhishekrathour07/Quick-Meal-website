@@ -37,10 +37,6 @@ const Sidebar: React.FC<props> = ({isMinimized,toggleSidebar}) => {
     },
   ];
 
-  // const [isMinimized, setIsMinimized] = useState(false);
-  // const toggleSidebar = () => {
-  //   setIsMinimized((prev) => !prev);
-  // };
 
   return (
     <div
