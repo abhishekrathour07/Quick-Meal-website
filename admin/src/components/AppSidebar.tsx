@@ -37,6 +37,7 @@ const Sidebar: React.FC<props> = ({isMinimized,toggleSidebar}) => {
     },
   ];
 
+  
 
   return (
     <div

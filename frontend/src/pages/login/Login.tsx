@@ -43,6 +43,9 @@ const Login: React.FC = () => {
                 localStorage.setItem("jwtToken", jwtToken);
                 localStorage.setItem("userId", userId);
                 navigate("/");
+            }else{
+            toast.error("Wrong Credential");
+
             }
         } catch (err: any) {
             toast.error("Something went wrong", err);

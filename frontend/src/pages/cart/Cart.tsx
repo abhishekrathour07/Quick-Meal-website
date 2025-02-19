@@ -2,31 +2,34 @@ import React from "react";
 import { useCart } from '../../context/Cartcontext';
 import { Minus, MoveRight, Plus, ShieldCheck } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import EmptyCart from "../../Lootie/EmptyCart.json"
+import { Button } from "../../components/ui/button";
 
 const Cart: React.FC = () => {
     const { cart, removeFromCart, updateQuantity } = useCart();
-    const placeOrderValidation = ()=>{
+    const placeOrderValidation = () => {
         const token = localStorage.getItem('jwtToken')
-        token?navigate("/cart/address"):navigate("/login")
+        token ? navigate("/cart/address") : navigate("/login")
     }
-    
-   
+
+
 
     const totalCost = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const navigate = useNavigate();
-   
+
     return (
         <div className="p-4 flex flex-col lg:flex-row justify-center lg:gap-8 bg-slate-100 min-h-screen">
             {/* Cart Items Section */}
             <div className="w-full lg:w-[60%] overflow-auto lg:h-full bg-white rounded-lg shadow-md">
                 <h2 className="text-xl md:text-2xl font-semibold mb-4 p-4">Your Cart</h2>
                 {cart.length === 0 ? (
-                    <div className="flex justify-center items-center h-64">
-                        <img
-                            src="/images/empty.png"
-                            alt="Empty cart"
-                            className="w-48 h-48 md:w-64 md:h-64"
-                        />
+                    <div className="p-4 flex flex-col items-center gap-4">
+                        <Lottie animationData={EmptyCart} loop={true} style={{ height: "400px" }} />
+                        <p className="text-red-600 text-lg text-center">Your Cart is Empty Please Add Some Food Item to Continue</p>
+                        <Button onClick={() => navigate("/")} className='w-48 text-center'>
+                            Add Food
+                        </Button>
                     </div>
                 ) : (
                     <div className="grid gap-4">
@@ -120,7 +123,7 @@ const Cart: React.FC = () => {
                     </div>
                     <div className="bg-white rounded-lg shadow-md mt-6 p-4 text-center">
                         <p className="text-lg text-slate-500 flex">
-                        <ShieldCheck  size={44}/>  Save and Secure Payment. Easy return. 100% Authentic pruducts
+                            <ShieldCheck size={44} />  Save and Secure Payment. Easy return. 100% Authentic pruducts
                         </p>
                         <div
                             className="flex items-center justify-center gap-2 text-green-600 cursor-pointer mt-2"

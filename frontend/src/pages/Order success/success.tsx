@@ -1,5 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Lottie from "lottie-react";
+import orderplaced from "../../Lootie/orderplaced.json"
+import { Button } from '../../components/ui/button';
 
 const OrderSuccess: React.FC = () => {
     const navigate = useNavigate();
@@ -11,18 +14,12 @@ const OrderSuccess: React.FC = () => {
                 <p className="text-gray-700 text-lg mb-6">
                     Thank you for your purchase! Your order has been successfully placed and is now being processed.
                 </p>
-                
-                <img
-                    src="https://cdn.dribbble.com/users/2185205/screenshots/7886140/media/90211520c82920dcaf6aea7604aeb029.gif"
-                    alt="Order Success"
-                    className=" mx-auto rounded-lg mb-6"
-                />
-                <button
-                    onClick={() => navigate('/')}
-                    className="bg-slate-900 text-white font-semibold px-6 py-3 rounded-lg hover:bg-slate-800 transition duration-200"
-                >
-                    Go to Home
-                </button>
+                <div className="p-4 flex flex-col items-center gap-4">
+                    <Lottie animationData={orderplaced} loop={true} style={{ height: "360px" }} />
+                    <Button onClick={() => navigate("/")} className='w-48 text-center'>
+                        Back TO Home
+                    </Button>
+                </div>
             </div>
         </div>
     );
