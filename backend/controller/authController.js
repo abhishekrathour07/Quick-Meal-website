@@ -23,7 +23,7 @@ export const signup = async (req, res) => {
 
         // Respond with success
         res.status(201).json({
-            message: "SignUp Successfully",
+            message: "SignUp Successfully you can now Login",
             success: true,
         });
     } catch (err) {

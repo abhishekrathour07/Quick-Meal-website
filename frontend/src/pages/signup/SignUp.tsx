@@ -44,7 +44,6 @@ const Signup: React.FC = () => {
             const { success, message } = result
 
             if (success) {
-                console.log(message);
                 toast.success(message);
                 navigate('/login')
             }
