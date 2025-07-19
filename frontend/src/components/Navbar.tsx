@@ -1,4 +1,4 @@
-import { Search, ShoppingCart, User } from 'lucide-react';
+import {  ShoppingCart, User } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/Cartcontext';
@@ -56,9 +56,6 @@ const Navbar: React.FC = () => {
       </ul>
 
       <ul className='flex gap-6 cursor-pointer items-center'>
-        <li>
-          <Search className='hover:text-orange-500' />
-        </li>
         <li
           className={`cursor-pointer hover:text-orange-500 relative  ${activeMenu === 'cart' ? 'text-orange-500' : ''
             }`}
