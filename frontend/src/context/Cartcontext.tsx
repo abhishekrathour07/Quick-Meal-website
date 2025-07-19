@@ -28,7 +28,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [cart, setCart] = useState<CartItem[]>([]);
   const [food_list, setFoodList] = useState<any[]>([]);
   const token = localStorage.getItem("jwtToken")
-  const url = "http://localhost:3005";
+  const url = import.meta.env.VITE_API_URL || "http://localhost:3005";
   const discountPercentage = 10;
 
   // Helper function to sync cart with localStorage for non-logged-in users

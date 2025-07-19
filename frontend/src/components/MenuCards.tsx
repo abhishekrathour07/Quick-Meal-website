@@ -53,7 +53,7 @@ const MenuCards: React.FC = () => {
                         key={food._id}
                         name={food.name}
                         description={food.description}
-                        image={`http://localhost:3005/uploads/${food.image}`}
+                        image={food.image} // Now using direct image URLs
                         price={food.price}
                     />
                 ))}

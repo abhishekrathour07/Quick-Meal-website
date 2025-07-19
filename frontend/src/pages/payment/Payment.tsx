@@ -26,7 +26,8 @@ const Payment: React.FC = () => {
                 return;
             }
 
-            const url = "http://localhost:3005/api/placeOrder";
+            const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3005";
+            const url = `${apiUrl}/api/placeOrder`;
             const payload = {
                 userId: localStorage.getItem("userId"),
                 items: cart.map(item => ({

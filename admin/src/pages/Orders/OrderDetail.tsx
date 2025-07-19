@@ -17,7 +17,8 @@ const OrderDetail: React.FC = () => {
         return;
       }
 
-      const response = await axios.get(`http://localhost:3005/api/order/${id}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3005";
+      const response = await axios.get(`${apiUrl}/api/order/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

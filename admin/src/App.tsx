@@ -15,7 +15,7 @@ import OrderDetail from './pages/Orders/OrderDetail'
 
 
 const App = () => {
-  const url = "http://localhost:3005";
+  const url = import.meta.env.VITE_API_URL || "http://localhost:3005";
   return (
     <Routes>
       {/* Redirect from the root to login */}

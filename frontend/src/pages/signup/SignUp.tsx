@@ -32,7 +32,8 @@ const Signup: React.FC = () => {
 
     const onSubmit = async (data: signupTypes) => {
         try {
-            const url = "http://localhost:3005/auth/signup"
+            const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3005";
+            const url = `${apiUrl}/auth/signup`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {

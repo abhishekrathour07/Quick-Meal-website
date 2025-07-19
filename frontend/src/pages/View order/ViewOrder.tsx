@@ -24,7 +24,8 @@ const ViewOrder: React.FC = () => {
                 return;
             }
 
-            const response = await axios.get('http://localhost:3005/api/order-list', {
+            const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3005";
+            const response = await axios.get(`${apiUrl}/api/order-list`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
