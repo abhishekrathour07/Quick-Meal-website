@@ -32,6 +32,24 @@ app.use("/api/cart", cartRouter);
 // Order Routes
 app.use("/api", orderRouter);
 
+// Health check endpoint
+app.get("/", (req, res) => {
+    res.json({ 
+        message: "Quick Meal API is running!", 
+        status: "OK",
+        timestamp: new Date().toISOString()
+    });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ 
+        message: "Something went wrong!",
+        error: process.env.NODE_ENV === 'production' ? {} : err.stack
+    });
+});
+
 app.listen(PORT, () => {
     console.log("Server is started at port " + PORT);
 });
