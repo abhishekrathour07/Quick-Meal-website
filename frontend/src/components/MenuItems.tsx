@@ -33,7 +33,7 @@ const MenuItems: React.FC<FoodItem> = ({ name, image, price, description }) => {
     return (
         <div className="flex flex-col justify-between p-4 m-2 bg-slate-100 rounded-lg py-6 drop-shadow-lg ">
             <div className="flex justify-center mb-4">
-                <img src={image} alt={name} className="rounded-full h-48 w-48" />
+                <img src={image || "https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_hybrid&w=740"} alt={name} className="rounded-full h-48 w-48" />
             </div>
             <h3 className="text-lg text-center text-orange-700">{name}</h3>
             <p className="text-center">{description}</p>
