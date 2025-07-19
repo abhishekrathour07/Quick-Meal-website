@@ -63,7 +63,7 @@ const FoodList: React.FC<props> = ({ url }) => {
                             key={food._id}
                             name={food.name}
                             description={food.description}
-                            image={`${url}/uploads/${food.image}`}
+                            image={food.image} // Now using direct image URLs
                             price={food.price}
                             onRemove={() => removeFood(food._id)} // Pass remove function
                         />

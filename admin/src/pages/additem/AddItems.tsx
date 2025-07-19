@@ -17,7 +17,7 @@ type AddItemType = {
     name: string;
     description: string;
     price: string;
-    image: File | null;
+    image: string; // Changed from File to string URL
     category: string;
 };
 
@@ -32,32 +32,28 @@ const AddItems: React.FC<Props> = ({ url }) => {
             name: '',
             description: '',
             price: '',
-            image: null,
+            image: '', // Changed to string
             category: '',
         },
         resolver: yupResolver(addItemSchema),
     });
 
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setImagePreview(URL.createObjectURL(file));
-            form.setValue('image', file);
-        }
+    const handleImageUrlChange = (imageUrl: string) => {
+        setImagePreview(imageUrl);
+        form.setValue('image', imageUrl);
     };
 
     const submitForm = async (data: AddItemType) => {
-        const formData = new FormData();
-        formData.append('name', data.name);
-        formData.append('description', data.description);
-        formData.append('price', data.price);
-        formData.append('category', data.category);
-        if (data.image) formData.append('image', data.image);
-
         try {
-            const response = await axios.post(`${url}/api/food/add`, formData, {
+            const response = await axios.post(`${url}/api/food/add`, {
+                name: data.name,
+                description: data.description,
+                price: data.price,
+                category: data.category,
+                image: data.image // Send image URL directly
+            }, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    'Content-Type': 'application/json',
                 },
             });
 
@@ -151,52 +147,33 @@ const AddItems: React.FC<Props> = ({ url }) => {
                                 Upload Image <span className="text-red-500">*</span>
                             </FormLabel>
                             <FormControl>
-                                <div className="border-2 border-dashed border-slate-500 p-4 rounded-lg flex items-center justify-center hover:border-slate-400 transition duration-300">
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        className="hidden"
-                                        id="file-upload"
-                                        onChange={(e) => {
-                                            handleImageChange(e);
-                                            field.onChange(e.target.files?.[0] || null);
-                                        }}
-                                    />
-                                    <label
-                                        htmlFor="file-upload"
-                                        className="cursor-pointer flex flex-col items-center"
-                                    >
-                                        {imagePreview ? (
+                                <div className="space-y-4">
+                                    <div>
+                                        <input
+                                            type="url"
+                                            placeholder="Enter image URL (e.g., https://example.com/image.jpg)"
+                                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                                            onChange={(e) => {
+                                                const imageUrl = e.target.value;
+                                                handleImageUrlChange(imageUrl);
+                                                field.onChange(imageUrl);
+                                            }}
+                                            value={field.value || ''}
+                                        />
+                                    </div>
+                                    {imagePreview && (
+                                        <div className="flex justify-center">
                                             <img
                                                 src={imagePreview}
                                                 alt="Preview"
                                                 className="w-40 h-40 object-cover rounded-lg shadow-md"
+                                                onError={() => {
+                                                    setImagePreview(null);
+                                                    toast.error('Invalid image URL');
+                                                }}
                                             />
-                                        ) : (
-                                            <>
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    className="h-10 w-10 text-orange-600 mb-2"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke="currentColor"
-                                                    strokeWidth={2}
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d="M3 16l3 3m0 0l3-3m-3 3V10m0-4h6m6 0h6M3 16v4m0 4h18m-18-4v4"
-                                                    />
-                                                </svg>
-                                                <span className="text-slate-400">
-                                                    Click to upload or drag & drop
-                                                </span>
-                                                <span className="text-sm text-slate-500">
-                                                    Supported formats: JPG, PNG, Max size: 2MB
-                                                </span>
-                                            </>
-                                        )}
-                                    </label>
+                                        </div>
+                                    )}
                                 </div>
                             </FormControl>
                             <FormMessage />
