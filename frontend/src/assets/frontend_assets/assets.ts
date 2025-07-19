@@ -11,7 +11,6 @@ import menu_6 from './menu_6.png'
 import menu_7 from './menu_7.png'
 import menu_8 from './menu_8.png'
 
-import food_1 from './food_1.png'
 import food_2 from './food_2.png'
 import food_3 from './food_3.png'
 import food_4 from './food_4.png'

@@ -11,7 +11,7 @@ import orderRouter from './routes/orderRouter.js';
 dotenv.config();
 
 const app = express();
-const PORT = 3005;
+const PORT = process.env.PORT || 3005;
 
 // Connect to Database
 connectDB();
