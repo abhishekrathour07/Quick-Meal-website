@@ -10,7 +10,6 @@ import menu_5 from './menu_5.png'
 import menu_6 from './menu_6.png'
 import menu_7 from './menu_7.png'
 import menu_8 from './menu_8.png'
-
 import food_2 from './food_2.png'
 import food_3 from './food_3.png'
 import food_4 from './food_4.png'
@@ -117,7 +116,6 @@ export const food_list = [
     {
         _id: "1",
         name: "Greek salad",
-        image: "food_1.png",
         price: 12,
         description: "Food provides essential nutrients for overall health and well-being",
         category: "Salad"

@@ -8,7 +8,7 @@ const MenuCards: React.FC = () => {
     const [filterFoodCategory, setFilterFoodCategory] = useState("All");
     const [activeMenu, setActiveMenu] = useState<string>('');
 
-    const { food_list } = useCart()
+    const { food_list, url } = useCart();
     const filterFoodData =
         filterFoodCategory === "All"
             ? food_list
@@ -53,7 +53,7 @@ const MenuCards: React.FC = () => {
                         key={food._id}
                         name={food.name}
                         description={food.description}
-                        image={food.image} // Now using direct image URLs
+                        image={food.image ? `${url}/uploads/${food.image}` : "https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_hybrid&w=740"}
                         price={food.price}
                     />
                 ))}

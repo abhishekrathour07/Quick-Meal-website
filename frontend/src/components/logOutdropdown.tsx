@@ -31,11 +31,6 @@ const LogOutdropdown: React.FC = () => {
                 <DropdownMenuSeparator className="bg-gray-400" />
                 <DropdownMenuGroup>
                     <DropdownMenuItem
-                        className="cursor-pointer gap-1 items-center"
-                    >
-                        Profile
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
                         className="cursor-pointer gap-1 items-center justify-between"
                         onClick={() => navigate("/orders")}
                     >
@@ -53,7 +48,7 @@ const LogOutdropdown: React.FC = () => {
 
                 <DropdownMenuSeparator className="bg-gray-400 h-[0.05rem]" />
                 <DropdownMenuItem onClick={handleLogOut} className="cursor-pointer">
-                    Log out
+                    Log out 
                     <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                 </DropdownMenuItem>
             </DropdownMenuContent>

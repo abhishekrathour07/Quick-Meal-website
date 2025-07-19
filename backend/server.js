@@ -18,6 +18,9 @@ connectDB();
 app.use(express.json());
 app.use(cors());
 
+// Serve static files from uploads directory
+app.use('/uploads', express.static('uploads'));
+
 // this is auth router for validation
 app.use("/auth", router);
 

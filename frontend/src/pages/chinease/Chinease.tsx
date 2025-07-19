@@ -6,7 +6,7 @@ import Footer from '../../components/Footer';
 interface chineasetypes {
     _id: string,
     name: string;
-    image: string;
+    image?: string;
     price: number;
     description: string;
 }
@@ -25,7 +25,7 @@ const Chinease: React.FC = () => {
                         <MenuItems key={chinease._id}
                             name={chinease.name}
                             description={chinease.description}
-                            image={chinease.image}
+                            image={chinease.image || "https://via.placeholder.com/150"}
                             price={chinease.price}
                         />
 
