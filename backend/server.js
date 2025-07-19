@@ -22,7 +22,7 @@ app.use(cors());
 app.use("/auth", router);
 
 // this is the food router 
-app.use('/uploads', express.static('uploads'));
+// Removed static file serving for Vercel compatibility
 app.use("/api/food", foodRouter);
 
 

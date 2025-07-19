@@ -4,16 +4,12 @@ import { addFood, getAllFood, removeFood } from "../controller/foodController.js
 
 const foodRouter = express.Router();
 
-const storage = multer.diskStorage({
-    destination: "uploads",
-    filename: (req, file, cb) => {
-        return cb(null, `${Date.now()}_${file.originalname}`);
-    }
-});
+// For Vercel deployment - use memory storage instead of disk storage
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 foodRouter.post("/add", upload.single("image"), addFood);
-foodRouter.get("/list", upload.single("image"), getAllFood);
-foodRouter.post("/remove", upload.single("image"), removeFood);
+foodRouter.get("/list", getAllFood);
+foodRouter.post("/remove", removeFood);
 
 export default foodRouter;

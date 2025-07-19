@@ -1,14 +1,14 @@
 import foodModel from "../models/foodModels.js";
-import fs from 'fs'
 
 const addFood = async (req, res) => {
-    let image_filename = req.file ? req.file.filename : null;
+    // For Vercel deployment - expect image URL instead of file upload
+    let image_url = req.body.image || null;
 
     const food = new foodModel({
         name: req.body.name,
         description: req.body.description,
         price: req.body.price,
-        image: image_filename,
+        image: image_url, // Store image URL instead of filename
         category: req.body.category,
     });
 
@@ -49,9 +49,6 @@ const getAllFood = async (req, res) => {
 
 const removeFood = async (req, res) => {
     try {
-        const food = await foodModel.findById(req.body.id);
-        fs.unlink(`uploads/${food.image}`, () => { });
-
         await foodModel.findByIdAndDelete(req.body.id);
         res.status(200).json({
             success: true,
