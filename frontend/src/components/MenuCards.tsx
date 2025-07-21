@@ -8,7 +8,7 @@ const MenuCards: React.FC = () => {
     const [filterFoodCategory, setFilterFoodCategory] = useState("All");
     const [activeMenu, setActiveMenu] = useState<string>('');
 
-    const { food_list, url } = useCart();
+    const { food_list } = useCart();
     const filterFoodData =
         filterFoodCategory === "All"
             ? food_list
