@@ -53,7 +53,7 @@ const MenuCards: React.FC = () => {
                         key={food._id}
                         name={food.name}
                         description={food.description}
-                        image={food.image ? `${url}/uploads/${food.image}` : "https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_hybrid&w=740"}
+                        image={"https://img.freepik.com/free-photo/top-view-table-full-food_23-2149209253.jpg?semt=ais_hybrid&w=740"}
                         price={food.price}
                     />
                 ))}
